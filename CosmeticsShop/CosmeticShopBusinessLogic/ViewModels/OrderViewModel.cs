@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using CosmeticsShopBusinessLogic.Enums;
+using CosmeticsShopBusinessLogic.Enums; 
 namespace CosmeticsShopBusinessLogic.ViewModels
 {
    public class OrderViewModel
