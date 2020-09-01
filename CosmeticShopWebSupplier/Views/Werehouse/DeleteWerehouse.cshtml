@@ -1,0 +1,45 @@
+﻿@model CosmeticShopDatabaseImplement.Models.Werehouse
+
+@{
+    ViewData["Title"] = "Удаление холодильника";
+}
+
+<h3>Удаление холодильника №@Model.Id</h3>
+
+<div class="text-left">
+    <h5>Вы уверены, что хотите удалить Склад?</h5>
+</div>
+
+<hr />
+<div>
+    <a class="text-dark" asp-action="ListWerehouses">Вернуться назад</a>
+</div>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WerehouseName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WerehouseName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteWerehouse">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-dark" />
+    </form>
+</div>
