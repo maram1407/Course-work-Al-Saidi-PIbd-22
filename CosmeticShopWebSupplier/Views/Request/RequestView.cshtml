@@ -1,0 +1,89 @@
+﻿@model Dictionary<int, (string, int, bool)>
+@{
+    ViewData["Title"] = "Заявка";
+}
+
+@{
+    bool completed = true;
+}
+
+@section Links {
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Request" asp-action="Request">Список заявок</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="" asp-controller="Werehouse" asp-action="ListWerehouses">Склад</a>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="text-left">
+    <h4>Заявка № @ViewBag.RequestId</h4>
+</div>
+
+<hr />
+
+<div class="text-left">
+    <h6>Поставщик - @Program.Supplier.SupplierFIO</h6>
+</div>
+
+<hr />
+
+<table class="table table-striped table-bordered">
+    <thead class="thead thead-dark">
+        <tr>
+            <th>
+                Косметика
+            </th>
+            <th>
+                Количество
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value.Item1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value.Item2)
+                </td>
+                <td>
+                    @if (!item.Value.Item3)
+                    {
+                        completed = false;
+                        <a class="btn btn-primary btn-sm btn-block" asp-action="ListCosmeticAvailable"
+                           asp-route-id="@item.Key" asp-route-name="@item.Value.Item1"
+                           asp-route-count="@item.Value.Item2" asp-route-requestId="@ViewBag.RequestId">
+                            Зарезервировать
+                        </a>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-primary btn-sm btn-block" disabled>Зарезервировано</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (completed)
+{
+    <hr />
+    <div class="row justify-content-center">
+        <a class="btn btn-primary btn-sm btn-block" asp-action="CompleteRequest" asp-route-id="@ViewBag.RequestId">Выполнить</a>
+    </div>
+    <hr />
+    <p>
+        <a href="/Request/SendWordReport/@ViewBag.RequestId">Отправить список косметики в формате .docx</a>
+    </p>
+    <p>
+        <a href="/Request/SendExcelReport/@ViewBag.RequestId">Отправить список косметики в формате .xlsx</a>
+    </p>
+}  

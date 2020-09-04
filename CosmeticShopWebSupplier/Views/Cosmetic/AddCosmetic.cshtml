@@ -1,0 +1,40 @@
+﻿@model CosmeticShopBusinessLogic.BindingModels.RequestCosmeticBindingModel
+
+@{
+    ViewData["Title"] = "Пополнение";
+}
+
+<div class="text-left">
+    <h4>Пополнение склада №@ViewBag.WerehouseId</h4>
+</div>
+
+<hr />
+<div>
+    <a class="text-dark" asp-action="ListCosmetics" asp-route-werehouseId="@ViewBag.WerehouseId">Вернуться назад</a>
+</div>
+<hr />
+
+<div class="text-left">
+    <h4>@ViewBag.CosmeticName</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Werehouse" asp-action="AddCosmetic">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WerehouseId" />
+            <input type="hidden" asp-for="CosmeticId" />
+            <div class="form-group">
+                <label asp-for="Count" class="control-label">Количество</label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+                <label asp-for="Price" class="control-label">Стоимость</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Пополнить" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
